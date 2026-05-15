@@ -1,30 +1,55 @@
-export const cheatSheetData = [
-  { topic: "Routing vs Forwarding", content: "Routing: End-to-End (Global), Find best path. Forwarding: Router-Local, Transfer to output." },
-  { topic: "RIP vs OSPF", content: "RIP: Distance-Vector, Hop Count (max 15), Slow convergence. OSPF: Link-State, Cost (Bandwidth), Fast convergence." },
-  { topic: "Access vs Trunk Ports", content: "Access: Single VLAN, Untagged. Trunk: Multiple VLANs, Tagged (802.1Q)." },
-  { topic: "Delay Formulas", content: "Transmission Delay: L / R. Propagation Delay: d / s. Total Nodal Delay: proc + queue + trans + prop." }
-];
+import lectureContent from './lecture-content.js';
 
-export const commandData = [
-  { cmd: "show ip route", desc: "View the IP routing table", category: "Verification" },
-  { cmd: "show ip ospf neighbor", desc: "View OSPF neighbor relationships", category: "Verification" },
-  { cmd: "show ip ospf database", desc: "View the Link-State Database (LSDB)", category: "Verification" },
-  { cmd: "show vlan brief", desc: "View VLAN assignments on switch", category: "Verification" },
-  { cmd: "router rip", desc: "Enter RIP configuration mode", category: "RIP" },
-  { cmd: "version 2", desc: "Enable RIP version 2", category: "RIP" },
-  { cmd: "network", desc: "Enable routing on a network", category: "RIP/OSPF" },
-  { cmd: "no auto-summary", desc: "Disable classful summarization", category: "RIP" },
-  { cmd: "router ospf", desc: "Enter OSPF configuration mode", category: "OSPF" },
-  { cmd: "router-id", desc: "Set OSPF router ID", category: "OSPF" },
-  { cmd: "vlan", desc: "Create a VLAN", category: "VLAN" },
-  { cmd: "switchport mode access", desc: "Set port to access mode", category: "VLAN" },
-  { cmd: "switchport mode trunk", desc: "Set port to trunk mode", category: "VLAN" }
-];
+export const cheatSheetData = lectureContent.flatMap((topic) => {
+  const items = [
+    { topic: topic.title, content: topic.concept.en, link: `#${topic.id}` },
+    { topic: `${topic.title} Why It Matters`, content: topic.whyItMatters.en, link: `#${topic.id}` }
+  ];
+
+  if (topic.compare) {
+    items.push({
+      topic: topic.compare.title,
+      content: topic.compare.rows.map((row) => row.join(' | ')).join(' ; '),
+      link: '#cheat-sheet'
+    });
+  }
+
+  return items;
+});
+
+export const commandData = lectureContent.flatMap((topic) =>
+  topic.commands.map((command) => ({
+    cmd: command.cmd,
+    desc: command.desc,
+    category: topic.title,
+    link: '#commands'
+  }))
+);
 
 export const visualizerData = [
-  { title: "Packet Path", desc: "Router forwarding decision and path visualization" },
-  { title: "VLAN Tagging", desc: "802.1Q tag field in Ethernet frame" },
-  { title: "MAC Learning", desc: "How switches learn MAC addresses and flood unknown frames" },
-  { title: "RIP Hop Count", desc: "How hop count increases at each router" },
-  { title: "OSPF Process", desc: "LSDB to SPF to Routing Table transition" }
+  {
+    title: 'Packet Forwarding Steps',
+    desc: 'Ingress frame, route lookup, TTL update, ARP/next-hop, new Layer 2 frame.',
+    link: '#visualizer'
+  },
+  {
+    title: 'RIP Update Flow',
+    desc: 'Hop count grows per router and route poisoning marks metric 16.',
+    link: '#visualizer'
+  },
+  {
+    title: 'OSPF LSDB to SPF',
+    desc: 'Hello, DBD, LSR, LSU, LSAck, LSDB sync, SPF, routing table.',
+    link: '#visualizer'
+  },
+  {
+    title: 'VLAN Tagging',
+    desc: 'Access untagged, trunk tagged, router-on-a-stick subinterfaces.',
+    link: '#visualizer'
+  },
+  {
+    title: 'MAC Learning',
+    desc: 'Learn source MAC, flood unknown destination, then unicast after reply.',
+    link: '#visualizer'
+  }
 ];

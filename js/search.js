@@ -2,45 +2,58 @@ import lectureContent from './lecture-content.js';
 import { cheatSheetData, commandData, visualizerData } from './search-data.js';
 import quiz from './quiz.js';
 
+function topicSearchBlob(topic) {
+  return [
+    topic.title,
+    topic.overviewEn,
+    topic.overviewAr,
+    topic.concept.en,
+    topic.concept.ar,
+    topic.whyItMatters.en,
+    topic.whyItMatters.ar,
+    topic.howItWorks.en,
+    topic.howItWorks.ar,
+    ...(topic.tags || []),
+    ...(topic.keyIdeas || []).flatMap((idea) => [idea.en, idea.ar]),
+    ...(topic.example?.steps || []).flatMap((step) => [step.en, step.ar]),
+    ...(topic.commands || []).flatMap((command) => [command.cmd, command.desc]),
+    ...(topic.mistakes || []).flatMap((mistake) => [mistake.title, mistake.detail, mistake.ar]),
+    ...(topic.examQuestions || []).flatMap((question) => [question.question, question.answer]),
+    ...(topic.compare?.rows || []).flatMap((row) => row)
+  ].join(' ').toLowerCase();
+}
+
 const search = {
   query: (text) => {
     const term = text.toLowerCase().trim();
-    if (!term) return { lectures: lectureContent, others: [] };
+    if (!term) {
+      return { lectures: lectureContent, others: [] };
+    }
 
-    const lectures = lectureContent.filter(l => 
-      l.title.toLowerCase().includes(term) ||
-      l.englishExplanation.toLowerCase().includes(term) ||
-      l.arabicExplanation.includes(term) ||
-      l.terms.some(t => t.en.toLowerCase().includes(term) || t.ar.includes(term))
-    );
-
+    const lectures = lectureContent.filter((topic) => topicSearchBlob(topic).includes(term));
     const others = [];
 
-    // Search Cheat Sheet
-    cheatSheetData.forEach(item => {
-      if (item.topic.toLowerCase().includes(term) || item.content.toLowerCase().includes(term)) {
-        others.push({ type: 'Cheat Sheet', title: item.topic, desc: item.content, link: '#cheat-sheet' });
+    cheatSheetData.forEach((item) => {
+      if (`${item.topic} ${item.content}`.toLowerCase().includes(term)) {
+        others.push({ type: 'Exam Note', title: item.topic, desc: item.content, link: item.link });
       }
     });
 
-    // Search Commands
-    commandData.forEach(item => {
-      if (item.cmd.toLowerCase().includes(term) || item.desc.toLowerCase().includes(term)) {
-        others.push({ type: 'Command', title: item.cmd, desc: item.desc, link: '#commands' });
+    commandData.forEach((item) => {
+      if (`${item.cmd} ${item.desc} ${item.category}`.toLowerCase().includes(term)) {
+        others.push({ type: 'CLI Command', title: item.cmd, desc: item.desc, link: item.link });
       }
     });
 
-    // Search Quiz
-    quiz.bank.forEach(item => {
-      if (item.question.toLowerCase().includes(term) || item.explanation.toLowerCase().includes(term)) {
-        others.push({ type: 'Quiz Question', title: 'Quiz Question', desc: item.question, link: '#quiz' });
+    visualizerData.forEach((item) => {
+      if (`${item.title} ${item.desc}`.toLowerCase().includes(term)) {
+        others.push({ type: 'Visual Step', title: item.title, desc: item.desc, link: item.link });
       }
     });
 
-    // Search Visualizers
-    visualizerData.forEach(item => {
-      if (item.title.toLowerCase().includes(term) || item.desc.toLowerCase().includes(term)) {
-        others.push({ type: 'Visualizer', title: item.title, desc: item.desc, link: '#visualizer' });
+    quiz.bank.forEach((item) => {
+      if (`${item.question} ${item.explanation} ${item.explanationAr}`.toLowerCase().includes(term)) {
+        others.push({ type: 'Quiz', title: item.question, desc: item.explanation, link: '#quiz' });
       }
     });
 
