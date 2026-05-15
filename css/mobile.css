@@ -1,55 +1,24 @@
 @media (max-width: 980px) {
-  .dashboard-intro,
-  .section-heading,
-  .nav-shell,
-  .footer-shell {
-    align-items: start;
+  .nav-shell {
+    align-items: stretch;
     flex-direction: column;
   }
 
-  .dashboard-stats,
-  .exam-summary-grid,
-  .topic-grid,
-  .exam-mode-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    width: min(100% - 1rem, 1180px);
-  }
-
-  .hero {
-    padding-top: 1.25rem;
-  }
-
-  .hero .container {
-    padding: 1.5rem;
-    border-radius: 24px;
-  }
-
-  .sticky-nav {
-    position: static;
-  }
-
   .sticky-nav ul {
-    overflow-x: auto;
-    white-space: nowrap;
     width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
     padding-bottom: 0.2rem;
+    scrollbar-width: thin;
   }
 
   .sticky-nav li {
     flex: 0 0 auto;
   }
 
-  main {
-    padding-top: 1.2rem;
-  }
-
-  section {
-    margin-top: 1.7rem;
+  #revision-mode-toggle {
+    align-self: flex-start;
   }
 
   .lecture-grid,
@@ -62,17 +31,96 @@
     grid-template-columns: 1fr;
   }
 
+  .step-card,
+  .example-step {
+    grid-template-columns: 52px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: min(100% - 1rem, 1180px);
+  }
+
+  .hero {
+    padding-top: 1rem;
+  }
+
+  .hero .container {
+    padding: 1.35rem;
+    border-radius: 26px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.95rem, 10vw, 2.8rem);
+    max-width: none;
+  }
+
+  .hero-copy {
+    font-size: 0.98rem;
+  }
+
+  .study-path-card {
+    padding: 1rem;
+  }
+
+  .study-path-item {
+    padding: 0.85rem 0.9rem;
+  }
+
+  .sticky-nav {
+    position: sticky;
+  }
+
+  .sticky-nav a {
+    min-height: 2.45rem;
+    padding: 0.58rem 0.85rem;
+    font-size: 0.92rem;
+  }
+
+  main {
+    padding-top: 1.1rem;
+  }
+
+  section {
+    margin-top: 1.6rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .dashboard-intro,
+  .section-heading {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .dashboard-stats,
+  .exam-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
   .topic-card,
   .stat-card,
   .comparison-card,
   .mistake-card,
   .viz-card,
-  #quiz-container {
+  .lab-card,
+  #quiz-container,
+  .exam-summary-card {
     padding: 1rem;
   }
 
   .topic-header {
     flex-direction: column;
+  }
+
+  .topic-header h3 {
+    font-size: 1.28rem;
+  }
+
+  .topic-grid,
+  .exam-mode-grid,
+  .key-idea-list {
+    grid-template-columns: 1fr;
   }
 
   .example-step,
@@ -82,13 +130,111 @@
 
   .example-index,
   .step-number {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .step-card:not(:last-child)::after {
+    display: none;
   }
 
   .mini-table-row,
-  .progress-container {
+  .progress-container,
+  .section-title-row,
+  .quiz-controls,
+  .quick-actions,
+  .hero-actions,
+  .topic-actions {
     flex-direction: column;
-    align-items: start;
+    align-items: stretch;
+  }
+
+  .quick-actions .btn,
+  .hero-actions .btn,
+  .quiz-controls .btn,
+  .topic-actions .btn {
+    width: 100%;
+  }
+
+  .command-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+  }
+
+  .tab-btn {
+    flex: 0 0 auto;
+  }
+
+  .tab-pane {
+    grid-template-columns: 1fr;
+  }
+
+  .table-responsive {
+    margin: 0 -0.15rem;
+    padding-bottom: 0.15rem;
+  }
+
+  table {
+    min-width: 560px;
+  }
+
+  .command-block {
+    padding: 0.95rem;
+  }
+
+  .cmd-line {
+    font-size: 0.9rem;
+  }
+
+  .viz-card h4 {
+    margin-bottom: 0.75rem;
+  }
+
+  #quiz-question h3 {
+    font-size: 1.15rem;
+  }
+
+  .quiz-option {
+    min-height: 3.95rem;
+    padding: 1rem;
+  }
+
+  .pdf-card {
+    gap: 0.2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    width: min(100% - 0.75rem, 1180px);
+  }
+
+  .hero .container {
+    padding: 1.1rem;
+    border-radius: 22px;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .stat-card p,
+  .quiz-finish-score {
+    font-size: 1.8rem;
+  }
+
+  #search-input {
+    min-height: 3.2rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .sticky-nav a {
+    padding: 0.55rem 0.8rem;
+  }
+
+  table {
+    min-width: 500px;
   }
 }

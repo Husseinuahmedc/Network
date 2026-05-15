@@ -7,14 +7,43 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile.css">
   <link rel="stylesheet" href="css/animations.css">
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="hero">
     <div class="container fade-in">
-      <p class="hero-kicker">Advanced Computer Network</p>
-      <h1>Final Exam Study Website</h1>
-      <p class="hero-copy">Stronger explanations, bilingual recall, visual packet flows, and exam-mode review for routing, RIP, OSPF, VLAN, and packet forwarding.</p>
+      <div class="hero-layout">
+        <div class="hero-copy-block">
+          <p class="hero-kicker">Advanced Computer Network</p>
+          <h1>Final Exam Study Website</h1>
+          <p class="hero-copy">Stronger explanations, bilingual recall, visual packet flows, and exam-mode review for routing, RIP, OSPF, VLAN, and packet forwarding.</p>
+          <div class="hero-actions">
+            <a href="#lectures" class="btn btn-primary">Start Studying</a>
+            <a href="#quiz" class="btn btn-secondary">Open Quiz</a>
+          </div>
+        </div>
+        <aside class="study-path-card" aria-label="Study path summary">
+          <p class="study-path-kicker">Quick Study Path</p>
+          <div class="study-path-list">
+            <a href="#lectures" class="study-path-item">
+              <strong>Study Topics</strong>
+              <span>Concepts, Arabic summaries, examples</span>
+            </a>
+            <a href="#cheat-sheet" class="study-path-item">
+              <strong>Exam Tables</strong>
+              <span>Comparisons, definitions, fast recall</span>
+            </a>
+            <a href="#commands" class="study-path-item">
+              <strong>CLI Commands</strong>
+              <span>Verification and lab-ready commands</span>
+            </a>
+            <a href="#quiz" class="study-path-item">
+              <strong>Quiz</strong>
+              <span>Exam-mode practice with feedback</span>
+            </a>
+          </div>
+        </aside>
+      </div>
     </div>
   </header>
 
@@ -197,12 +226,36 @@
         <p>Original lecture files remain available for full-slide review.</p>
       </div>
       <div class="pdf-grid">
-        <a href="assets/source-pdfs/lecture-2-routing-performance.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">Lecture 2: Routing and Performance</a>
-        <a href="assets/source-pdfs/lecture-3-routing-algorithms.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">Lecture 3: Routing Algorithms</a>
-        <a href="assets/source-pdfs/lecture-4-rip.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">Lecture 4: RIP</a>
-        <a href="assets/source-pdfs/lecture-5-ospf.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">Lecture 5: OSPF</a>
-        <a href="assets/source-pdfs/lecture-8-routing-packets.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">Lecture 8: Routing Packets</a>
-        <a href="assets/source-pdfs/vlan-lecture.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">VLAN Lecture</a>
+        <a href="assets/source-pdfs/lecture-2-routing-performance.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">
+          <span class="pdf-meta">Source PDF</span>
+          <strong>Lecture 2</strong>
+          <span>Routing and Performance</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-3-routing-algorithms.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">
+          <span class="pdf-meta">Source PDF</span>
+          <strong>Lecture 3</strong>
+          <span>Routing Algorithms</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-4-rip.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">
+          <span class="pdf-meta">Source PDF</span>
+          <strong>Lecture 4</strong>
+          <span>RIP</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-5-ospf.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">
+          <span class="pdf-meta">Source PDF</span>
+          <strong>Lecture 5</strong>
+          <span>OSPF</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-8-routing-packets.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">
+          <span class="pdf-meta">Source PDF</span>
+          <strong>Lecture 8</strong>
+          <span>Routing Packets</span>
+        </a>
+        <a href="assets/source-pdfs/vlan-lecture.pdf" class="pdf-card" target="_blank" rel="noopener noreferrer">
+          <span class="pdf-meta">Source PDF</span>
+          <strong>VLAN</strong>
+          <span>Lecture Slides</span>
+        </a>
       </div>
     </section>
 
