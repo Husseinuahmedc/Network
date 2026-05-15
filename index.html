@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Computer Network Final Study</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <div class="container fade-in">
+      <h1>Advanced Computer Network</h1>
+      <p>Final Exam Revision: Routing, RIP, OSPF, VLAN, Packet Forwarding</p>
+    </div>
+  </header>
+
+  <nav class="sticky-nav">
+    <div class="container">
+      <ul>
+        <li><a href="#dashboard">Home</a></li>
+        <li><a href="#lectures">Lectures</a></li>
+        <li><a href="#cheat-sheet">Cheat Sheet</a></li>
+        <li><a href="#commands">CLI</a></li>
+        <li><a href="#visualizer">Visualizer</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#pdfs">PDFs</a></li>
+        <li class="nav-special"><button id="revision-mode-toggle" class="btn btn-primary btn-sm">Final Night Mode</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Quick-Jump Sidebar (Desktop Only) -->
+  <aside class="quick-jump-sidebar desktop-only">
+    <h4>Quick Jump</h4>
+    <ul>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#lectures">Lectures</a></li>
+      <li><a href="#cheat-sheet">Cheat Sheet</a></li>
+      <li><a href="#common-mistakes">Common Mistakes</a></li>
+      <li><a href="#final-questions">Final Qs</a></li>
+      <li><a href="#commands">CLI</a></li>
+      <li><a href="#visualizer">Visualizer</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </aside>
+
+  <main class="container">
+    
+    <section id="dashboard" class="fade-in">
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <h3>Lectures</h3>
+          <p id="total-lectures">6 Topics</p>
+        </div>
+        <div class="stat-card">
+          <h3>Progress</h3>
+          <div class="progress-container">
+            <p id="progress-val">0%</p>
+            <button id="reset-progress" class="btn-text">Reset</button>
+          </div>
+        </div>
+        <div class="stat-card">
+          <h3>Quiz Score</h3>
+          <p id="high-score">--</p>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <a href="#lectures" class="btn btn-primary">Start Study</a>
+        <a href="#cheat-sheet" class="btn btn-secondary">Cheat Sheet</a>
+        <a href="#common-mistakes" class="btn btn-secondary">Common Mistakes</a>
+        <a href="#visualizer" class="btn btn-secondary">Visualizer</a>
+        <a href="#quiz" class="btn btn-primary pulse">Take Quiz</a>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search lectures, terms, commands, or questions... (Press / to focus)">
+        <div id="search-results-count" class="search-status"></div>
+      </div>
+    </section>
+
+    <section id="lectures">
+      <h2>Lecture Explorer</h2>
+      <div id="lecture-list" class="lecture-grid">
+      </div>
+    </section>
+
+    <section id="common-mistakes">
+      <h2>Common Mistakes to Avoid</h2>
+      <div class="mistakes-grid">
+        <div class="mistake-card">
+          <h4>Transmission vs Propagation</h4>
+          <p><strong>Mistake:</strong> Thinking Transmission delay depends on distance.</p>
+          <p><strong>Fact:</strong> Transmission (L/R) depends on <strong>Packet Size</strong> and <strong>Link Speed</strong>. Propagation (d/s) depends on <strong>Distance</strong>.</p>
+        </div>
+        <div class="mistake-card">
+          <h4>Routing vs Forwarding</h4>
+          <p><strong>Mistake:</strong> Using the terms interchangeably.</p>
+          <p><strong>Fact:</strong> Routing is the <strong>Global</strong> process of finding paths. Forwarding is the <strong>Local</strong> process of moving packets between ports.</p>
+        </div>
+        <div class="mistake-card">
+          <h4>RIP Metric</h4>
+          <p><strong>Mistake:</strong> Forgetting that 16 hops means unreachable.</p>
+          <p><strong>Fact:</strong> RIP's maximum valid hop count is 15. 16 is "infinity".</p>
+        </div>
+        <div class="mistake-card">
+          <h4>VLAN Access vs Trunk</h4>
+          <p><strong>Mistake:</strong> Putting a tag on an Access port frame.</p>
+          <p><strong>Fact:</strong> Access ports frames are <strong>Untagged</strong>. Trunk ports frames are <strong>Tagged</strong> (802.1Q).</p>
+        </div>
+        <div class="mistake-card">
+          <h4>Packet vs Circuit Switching</h4>
+          <p><strong>Mistake:</strong> Thinking Packet Switching has dedicated resources.</p>
+          <p><strong>Fact:</strong> Circuit Switching has <strong>Reserved</strong> bandwidth. Packet Switching uses <strong>Statistical Multiplexing</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="labs">
+      <h2>Packet Tracer Labs</h2>
+      <div class="labs-grid">
+        <div class="lab-card">
+          <h4>Lab 1: Static vs Dynamic (RIP)</h4>
+          <p><strong>Topology:</strong> 3 Routers in a triangle.</p>
+          <div class="lab-details">
+            <ul>
+              <li>Config: <code>router rip</code>, <code>version 2</code>, <code>network ...</code></li>
+              <li>Behavior: Verify path change when one link fails.</li>
+              <li>Mistake: Forgetting <code>no auto-summary</code>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lab-card">
+          <h4>Lab 2: OSPF Multi-Area</h4>
+          <p><strong>Topology:</strong> Area 0 (Backbone) + Area 1.</p>
+          <div class="lab-details">
+            <ul>
+              <li>Config: <code>network [net] [wildcard] area [id]</code></li>
+              <li>Behavior: Check <code>show ip ospf database</code> for Inter-Area routes.</li>
+              <li>Mistake: Mismatched Area IDs on a single link.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lab-card">
+          <h4>Lab 3: VLAN Trunking & SVI</h4>
+          <p><strong>Topology:</strong> 2 Switches, 2 VLANs, 1 Router-on-a-Stick.</p>
+          <div class="lab-details">
+            <ul>
+              <li>Config: <code>encapsulation dot1Q [vlan]</code> on sub-interfaces.</li>
+              <li>Behavior: Ping between different VLANs via the router.</li>
+              <li>Mistake: Forgetting <code>switchport mode trunk</code> on switch-to-switch link.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="top-questions">
+      <h2>Top 20 Final Questions</h2>
+      <div id="top-questions-container" class="final-questions-grid">
+        <!-- populated by JS -->
+      </div>
+    </section>
+
+    <section id="cheat-sheet">
+      <h2>Exam Cheat Sheet</h2>
+      <div class="cheat-sheet-grid">
+        <div class="comparison-card routing-forwarding">
+          <h4>Routing vs Forwarding</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr><th>Aspect</th><th>Routing</th><th>Forwarding</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Scope</td><td>End-to-End (Global)</td><td>Router-Local</td></tr>
+                <tr><td>Goal</td><td>Find best path</td><td>Transfer to output</td></tr>
+                <tr><td>Algorithm</td><td>Routing Protocol</td><td>Routing Table Lookup</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="comparison-card rip-ospf">
+          <h4>RIP vs OSPF</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr><th>Feature</th><th>RIP</th><th>OSPF</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Type</td><td>Distance-Vector</td><td>Link-State</td></tr>
+                <tr><td>Metric</td><td>Hop Count (max 15)</td><td>Cost (Bandwidth)</td></tr>
+                <tr><td>Convergence</td><td>Slow</td><td>Fast</td></tr>
+                <tr><td>Update</td><td>Full Table (30s)</td><td>Triggered LSAs</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="comparison-card vlan">
+          <h4>Access vs Trunk Ports</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr><th>Port Type</th><th>Traffic</th><th>Tagging</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Access</td><td>Single VLAN</td><td>Untagged</td></tr>
+                <tr><td>Trunk</td><td>Multiple VLANs</td><td>Tagged (802.1Q)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="comparison-card">
+          <h4>Datagram vs Virtual Circuit</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr><th>Feature</th><th>Datagram (Packet)</th><th>Virtual Circuit</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Setup</td><td>None (Connectionless)</td><td>Required (Call Setup)</td></tr>
+                <tr><td>Path</td><td>Dynamic (Packet by Packet)</td><td>Fixed for the session</td></tr>
+                <tr><td>State</td><td>No state in routers</td><td>Routers hold per-VC state</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="comparison-card">
+          <h4>Link-State vs Distance-Vector</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr><th>Feature</th><th>Distance-Vector (RIP)</th><th>Link-State (OSPF)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>View</td><td>Neighbors only (Rumor)</td><td>Full Topology Map</td></tr>
+                <tr><td>Algorithm</td><td>Bellman-Ford</td><td>Dijkstra SPF</td></tr>
+                <tr><td>Traffic</td><td>Periodic Full Updates</td><td>Triggered LSAs</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="comparison-card">
+          <h4>Delay Formulas</h4>
+          <div class="table-responsive">
+            <table>
+              <tr><td><strong>Transmission Delay</strong></td><td>L / R (Packet / Rate)</td></tr>
+              <tr><td><strong>Propagation Delay</strong></td><td>d / s (Distance / Speed)</td></tr>
+              <tr><td><strong>Total Nodal Delay</strong></td><td>proc + queue + trans + prop</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="commands">
+      <h2>Cisco CLI (Study Commands)</h2>
+      <div class="command-tabs">
+        <button class="tab-btn active" data-tab="verification">Verification</button>
+        <button class="tab-btn" data-tab="rip">RIP</button>
+        <button class="tab-btn" data-tab="ospf">OSPF</button>
+        <button class="tab-btn" data-tab="vlan">VLAN</button>
+      </div>
+      <div class="command-content">
+        <div id="verification" class="tab-pane active">
+          <div class="command-block">
+            <div class="cmd-line">Router# show ip route</div>
+            <div class="cmd-desc">View the IP routing table to see all known networks and their next hops.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router# show ip ospf neighbor</div>
+            <div class="cmd-desc">View OSPF neighbor relationships to verify adjacencies.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router# show ip ospf database</div>
+            <div class="cmd-desc">View the Link-State Database (LSDB) which contains all LSAs known to the router.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router# show vlan brief</div>
+            <div class="cmd-desc">View VLAN assignments and status on a switch.</div>
+          </div>
+        </div>
+        <div id="rip" class="tab-pane">
+          <div class="command-block">
+            <div class="cmd-line">Router(config)# router rip</div>
+            <div class="cmd-desc">Enter RIP configuration mode.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router(config-router)# version 2</div>
+            <div class="cmd-desc">Enable RIP version 2 (supports VLSM and multicast updates).</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router(config-router)# network 192.168.1.0</div>
+            <div class="cmd-desc">Enable RIP on the specified network interface.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router(config-router)# no auto-summary</div>
+            <div class="cmd-desc">Disable classful summarization (required for VLSM).</div>
+          </div>
+        </div>
+        <div id="ospf" class="tab-pane">
+          <div class="command-block">
+            <div class="cmd-line">Router(config)# router ospf 1</div>
+            <div class="cmd-desc">Enter OSPF configuration mode with process ID 1.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router(config-router)# router-id 1.1.1.1</div>
+            <div class="cmd-desc">Set a unique 32-bit identifier for the OSPF router.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router(config-router)# network 10.0.0.0 0.0.0.255 area 0</div>
+            <div class="cmd-desc">Enable OSPF on interfaces matching the network/wildcard mask in Area 0.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Router(config-router)# default-information originate</div>
+            <div class="cmd-desc">Advertise a default route to other OSPF routers.</div>
+          </div>
+        </div>
+        <div id="vlan" class="tab-pane">
+          <div class="command-block">
+            <div class="cmd-line">Switch(config)# vlan 10</div>
+            <div class="cmd-desc">Create VLAN 10 and enter VLAN configuration mode.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Switch(config-vlan)# name Engineering</div>
+            <div class="cmd-desc">Assign a descriptive name to the VLAN.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Switch(config-if)# switchport mode access</div>
+            <div class="cmd-desc">Set the interface to access mode (for end devices).</div>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-line">Switch(config-if)# switchport access vlan 10</div>
+            <div class="cmd-desc">Assign the interface to VLAN 10.</div>
+          </div>
+          <div class="command-block">
+            <div class="cmd-line">Switch(config-if)# switchport mode trunk</div>
+            <div class="cmd-desc">Set the interface to trunk mode (for switch-to-switch links).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visualizer">
+      <h2>Visualizer</h2>
+      <div class="visualizer-grid">
+        <div class="viz-card">
+          <h4>Packet Path (Router Forwarding)</h4>
+          <div id="packet-path-viz"></div>
+        </div>
+        <div class="viz-card">
+          <h4>VLAN Tagging (802.1Q)</h4>
+          <div id="vlan-tag-viz"></div>
+        </div>
+        <div class="viz-card">
+          <h4>MAC Learning & Flooding</h4>
+          <div id="mac-learning-viz"></div>
+        </div>
+        <div class="viz-card">
+          <h4>RIP Hop Count Update</h4>
+          <div id="rip-hop-viz"></div>
+        </div>
+        <div class="viz-card">
+          <h4>OSPF: LSDB &rarr; SPF &rarr; Routing Table</h4>
+          <div id="ospf-process-viz"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pdfs">
+      <h2>Source PDFs</h2>
+      <div class="pdf-grid">
+        <a href="assets/source-pdfs/lecture-2-routing-performance.pdf" class="pdf-card" target="_blank">
+          <div class="pdf-icon">📄</div>
+          <span>Lecture 2: Routing and Forwarding</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-3-routing-algorithms.pdf" class="pdf-card" target="_blank">
+          <div class="pdf-icon">📄</div>
+          <span>Lecture 3: Routing Algorithms</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-4-rip.pdf" class="pdf-card" target="_blank">
+          <div class="pdf-icon">📄</div>
+          <span>Lecture 4: RIP</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-5-ospf.pdf" class="pdf-card" target="_blank">
+          <div class="pdf-icon">📄</div>
+          <span>Lecture 5: OSPF</span>
+        </a>
+        <a href="assets/source-pdfs/lecture-8-routing-packets.pdf" class="pdf-card" target="_blank">
+          <div class="pdf-icon">📄</div>
+          <span>Lecture 8: Routing Packets</span>
+        </a>
+        <a href="assets/source-pdfs/vlan-lecture.pdf" class="pdf-card" target="_blank">
+          <div class="pdf-icon">📄</div>
+          <span>VLAN Lecture</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <h2>Revision Quiz</h2>
+      <div id="quiz-container">
+        <div id="quiz-question"></div>
+        <div id="quiz-options"></div>
+        <div id="quiz-feedback"></div>
+        <button id="quiz-next" class="btn btn-primary">Next Question</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Advanced Computer Network Study Guide</p>
+      <p>Prepared for Final Exam Revision</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
