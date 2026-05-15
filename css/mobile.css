@@ -37,9 +37,27 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 761px) and (max-width: 1024px) {
+  .lecture-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topic-grid,
+  .example-steps,
+  .command-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .key-idea-list,
+  .mistakes-inline,
+  .question-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
   .container {
-    width: min(100% - 1rem, 1180px);
+    width: min(100% - 1rem, 100%);
   }
 
   .hero {
@@ -94,7 +112,22 @@
   }
 
   .dashboard-stats,
-  .exam-summary-grid {
+  .exam-summary-grid,
+  .lecture-grid,
+  .topic-grid,
+  .key-idea-list,
+  .mistakes-inline,
+  .question-list,
+  .example-steps,
+  .command-list,
+  .mistakes-grid,
+  .labs-grid,
+  .cheat-sheet-grid,
+  .visualizer-grid,
+  .pdf-grid,
+  .other-results-grid,
+  .exam-mode-grid,
+  .final-questions-grid {
     grid-template-columns: 1fr;
   }
 
@@ -115,12 +148,6 @@
 
   .topic-header h3 {
     font-size: 1.28rem;
-  }
-
-  .topic-grid,
-  .exam-mode-grid,
-  .key-idea-list {
-    grid-template-columns: 1fr;
   }
 
   .example-step,
