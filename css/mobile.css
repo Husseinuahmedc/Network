@@ -1,4 +1,4 @@
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .nav-shell {
     align-items: stretch;
     flex-direction: column;
@@ -37,7 +37,7 @@
   }
 }
 
-@media (min-width: 761px) and (max-width: 1024px) {
+@media (min-width: 641px) and (max-width: 1024px) {
   .lecture-grid {
     grid-template-columns: 1fr;
   }
@@ -55,7 +55,7 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 640px) {
   .container {
     width: min(100% - 1rem, 100%);
   }
@@ -118,6 +118,7 @@
   .key-idea-list,
   .mistakes-inline,
   .question-list,
+  .question-style-grid,
   .example-steps,
   .command-list,
   .mistakes-grid,

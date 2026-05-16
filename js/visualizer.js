@@ -47,6 +47,52 @@ const visualizer = {
         ar: 'تُغلف الحزمة في إطار جديد للطبقة الثانية بعنوان MAC للقفزة التالية ثم تُمرر.'
       }
     ]),
+  renderLongestPrefixMatch: (containerId) =>
+    renderStepCards(containerId, 'Longest Prefix Match', [
+      {
+        heading: 'List Matches',
+        en: 'Compare the destination IP with every routing-table prefix that could contain it.',
+        ar: 'قارن عنوان IP الوجهة مع كل بادئة في جدول التوجيه يمكن أن تحتويه.'
+      },
+      {
+        heading: 'Count Prefix Bits',
+        en: 'The prefix length shows how many leftmost bits must match, such as /8, /16, or /24.',
+        ar: 'طول البادئة يوضح عدد البتات اليسرى التي يجب أن تتطابق مثل /8 أو /16 أو /24.'
+      },
+      {
+        heading: 'Choose Longest',
+        en: 'If more than one route matches, choose the longest prefix because it is the most specific route.',
+        ar: 'إذا تطابق أكثر من مسار فاختر أطول بادئة لأنها المسار الأكثر تحديداً.'
+      },
+      {
+        heading: 'Use Default Last',
+        en: 'A /0 default route matches only when no more specific route is available.',
+        ar: 'المسار الافتراضي /0 يستخدم عندما لا يوجد مسار أكثر تحديداً.'
+      }
+    ]),
+  renderRoutingTable: (containerId) =>
+    renderStepCards(containerId, 'Routing Table Reading', [
+      {
+        heading: 'Source Code',
+        en: 'Read the route code first: C connected, S static, R RIP, and O OSPF.',
+        ar: 'اقرأ رمز مصدر المسار أولاً: C متصل، S ثابت، R لـ RIP، و O لـ OSPF.'
+      },
+      {
+        heading: 'Prefix',
+        en: 'Read the destination network and prefix length, for example 192.168.3.0/24.',
+        ar: 'اقرأ شبكة الوجهة وطول البادئة مثل 192.168.3.0/24.'
+      },
+      {
+        heading: 'AD and Metric',
+        en: 'The bracket [AD/metric] tells route-source preference first, then protocol metric.',
+        ar: 'القوس [AD/metric] يوضح أفضلية مصدر المسار أولاً ثم مقياس البروتوكول.'
+      },
+      {
+        heading: 'Next Hop',
+        en: 'The final part tells where to send the packet: next-hop address and/or exit interface.',
+        ar: 'الجزء الأخير يوضح أين ترسل الحزمة: عنوان القفزة التالية و/أو واجهة الخروج.'
+      }
+    ]),
   renderVlanTag: (containerId) =>
     renderStepCards(containerId, 'VLAN Tagging Flow', [
       {

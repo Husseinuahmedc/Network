@@ -24,6 +24,8 @@ function initApp() {
   setupEventListeners();
 
   visualizer.renderPacketPath('packet-path-viz');
+  visualizer.renderLongestPrefixMatch('lpm-viz');
+  visualizer.renderRoutingTable('routing-table-viz');
   visualizer.renderVlanTag('vlan-tag-viz');
   visualizer.renderMacLearning('mac-learning-viz');
   visualizer.renderRipHop('rip-hop-viz');
@@ -94,6 +96,9 @@ function renderStudyCard(topic, studied) {
         .join('')}
     </div>
 
+    ${renderMemorizeBlock(topic)}
+    ${renderQuestionStyleBlock(topic)}
+
     <div class="detail-section">
       <div class="section-title-row">
         <h4>Step-by-Step Example</h4>
@@ -120,14 +125,7 @@ function renderStudyCard(topic, studied) {
       <h4>CLI Commands</h4>
       <div class="command-list">
         ${topic.commands
-          .map(
-            (command) => `
-              <div class="command-block">
-                <div class="cmd-line">${command.cmd}</div>
-                <div class="cmd-desc">${command.desc}</div>
-              </div>
-            `
-          )
+          .map((command) => renderCommandBlock(command))
           .join('')}
       </div>
     </div>
@@ -203,11 +201,11 @@ function renderExamCard(topic, studied) {
         </div>
       </div>
       <div class="info-panel">
-        <h4>CLI</h4>
+        <h4>Memorize</h4>
         <div class="mini-command-list">
-          ${topic.commands
+          ${(topic.memorize || topic.keyIdeas.map((idea) => idea.en))
             .slice(0, 3)
-            .map((command) => `<code>${command.cmd}</code>`)
+            .map((item) => `<code>${item}</code>`)
             .join('')}
         </div>
       </div>
@@ -224,6 +222,41 @@ function renderExamCard(topic, studied) {
   `;
 }
 
+function renderMemorizeBlock(topic) {
+  if (!topic.memorize?.length) return '';
+
+  return `
+    <div class="detail-section exam-memory-block">
+      <h4>What to Memorize for Exam</h4>
+      <ul>
+        ${topic.memorize.map((item) => `<li>${item}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+}
+
+function renderQuestionStyleBlock(topic) {
+  if (!topic.questionStyles?.length) return '';
+
+  return `
+    <div class="detail-section question-style-block">
+      <h4>Common Final Question Style</h4>
+      <div class="question-style-grid">
+        ${topic.questionStyles
+          .map(
+            (item) => `
+              <article class="question-style-card">
+                <span>${item.type}</span>
+                <p>${item.prompt}</p>
+              </article>
+            `
+          )
+          .join('')}
+      </div>
+    </div>
+  `;
+}
+
 function renderInfoPanel(title, en, ar) {
   return `
     <section class="info-panel">
@@ -231,6 +264,19 @@ function renderInfoPanel(title, en, ar) {
       <p>${en}</p>
       <p class="arabic-text">${ar}</p>
     </section>
+  `;
+}
+
+function renderCommandBlock(command) {
+  return `
+    <div class="command-block">
+      <div class="cmd-line">${command.cmd}</div>
+      <div class="cmd-desc">${command.desc}</div>
+      ${command.solves ? `<p><strong>Problem:</strong> ${command.solves}</p>` : ''}
+      ${command.output ? `<p><strong>Expected output:</strong> ${command.output}</p>` : ''}
+      ${command.exam ? `<p><strong>Exam-important:</strong> ${command.exam}</p>` : ''}
+      ${command.optional ? '<span class="optional-lab-badge">Optional lab / practical</span>' : ''}
+    </div>
   `;
 }
 
@@ -297,15 +343,15 @@ function renderCheatSheet() {
   summary.innerHTML = `
     <div class="exam-summary-card">
       <h3>Definitions</h3>
-      <p>Use exam mode when you need fast recall of concepts, compare points, and must-not-miss CLI commands.</p>
+      <p>Last-hour pass: definitions first, then differences, then formulas and process steps.</p>
     </div>
     <div class="exam-summary-card">
       <h3>Compare Tables</h3>
-      <p>Every topic below is compressed into a table that is easier to memorize the night before the final.</p>
+      <p>Focus on routing vs forwarding, service models, switching methods, static/dynamic, RIP/OSPF, and VLAN links.</p>
     </div>
     <div class="exam-summary-card">
-      <h3>Command Recall</h3>
-      <p>Focus on verification commands first, then configuration commands for RIP, OSPF, and VLAN labs.</p>
+      <h3>Processes</h3>
+      <p>Be ready to write ordered steps for longest prefix match, RIP updates, OSPF LSDB/SPF, and 802.1Q tagging.</p>
     </div>
   `;
 
@@ -315,6 +361,7 @@ function renderCheatSheet() {
       (topic) => `
         <article class="comparison-card">
           <h4>${topic.compare.title}</h4>
+          ${renderMemorizeBlock(topic)}
           <div class="table-responsive">
             <table>
               <thead>
@@ -327,6 +374,7 @@ function renderCheatSheet() {
               </tbody>
             </table>
           </div>
+          ${renderQuestionStyleBlock(topic)}
         </article>
       `
     )
@@ -359,12 +407,7 @@ function renderCommands() {
         .filter((topic) => tab.match(topic))
         .flatMap((topic) =>
           topic.commands.map(
-            (command) => `
-              <div class="command-block">
-                <div class="cmd-line">${command.cmd}</div>
-                <div class="cmd-desc">${command.desc}</div>
-              </div>
-            `
+            (command) => renderCommandBlock(command)
           )
         )
         .join('');

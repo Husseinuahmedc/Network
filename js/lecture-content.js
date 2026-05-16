@@ -923,22 +923,22 @@ const lectureContent = [
   {
     id: "routing-packets",
     lectureNo: 11,
-    title: "Routing Packets: MAC Learning, Flooding, Two Switches, TCP Session Basics",
+    title: "Routing Packets: MAC Learning, Flooding, and Two-Switch Forwarding",
     priority: "High",
-    overviewEn: "This topic combines Layer 2 frame movement, Layer 3 forwarding, and the basic TCP session start sequence.",
-    overviewAr: "يجمع هذا الموضوع بين حركة الإطارات في الطبقة الثانية وتمرير الحزم في الطبقة الثالثة وتسلسل بدء جلسة TCP الأساسي.",
-    tags: ["mac learning", "flooding", "switching", "two switches", "tcp handshake"],
+    overviewEn: "This topic follows Layer 2 frame movement through two switches: MAC learning, unknown-destination flooding, filtering, and later unicast forwarding.",
+    overviewAr: "يتتبع هذا الموضوع حركة إطار الطبقة الثانية عبر مبدلين: تعلم MAC، إغراق الوجهة غير المعروفة، الترشيح، ثم التمرير الأحادي لاحقاً.",
+    tags: ["mac learning", "flooding", "switching", "two switches", "filtering"],
     concept: {
-      en: "Switches learn source MAC addresses and build MAC tables. Unknown destination MAC addresses cause flooding. Across two switches, each switch learns incrementally as frames traverse the path. TCP session establishment uses SYN, SYN-ACK, and ACK before data transfer.",
-      ar: "تتعلم المبدلات عناوين MAC المصدر وتبني جداول MAC. وعنوان MAC الوجهة غير المعروف يسبب flooding. وعبر مبدلين يتعلم كل مبدل تدريجياً أثناء عبور الإطارات. أما بدء جلسة TCP فيستخدم SYN ثم SYN-ACK ثم ACK قبل نقل البيانات."
+      en: "Switches learn source MAC addresses and build MAC tables. Unknown destination MAC addresses cause flooding inside the same VLAN. Across two switches, each switch learns incrementally as frames traverse the path.",
+      ar: "تتعلم المبدلات عناوين MAC المصدر وتبني جداول MAC. وعنوان MAC الوجهة غير المعروف يسبب flooding داخل نفس VLAN. وعبر مبدلين يتعلم كل مبدل تدريجياً أثناء عبور الإطارات."
     },
     whyItMatters: {
       en: "Finals often combine this topic into path-walk questions where you must explain exactly what each switch or router learns and forwards.",
       ar: "النهائي يدمج هذا الموضوع كثيراً في أسئلة تتبع المسار حيث يجب شرح ما الذي يتعلمه كل مبدل أو موجه وما الذي يمرره."
     },
     howItWorks: {
-      en: "When a frame enters a switch, the switch records the source MAC on that port. If the destination MAC is known, the frame is unicasted to one port; otherwise it is flooded out all other ports in the same VLAN. Through two switches, the first unknown frame may be flooded, but the reply teaches both switches the missing MAC locations. TCP then uses the three-way handshake so both endpoints agree on initial connection state.",
-      ar: "عندما يدخل إطار إلى المبدل يسجل المبدل عنوان MAC المصدر على ذلك المنفذ. وإذا كانت وجهة MAC معروفة يرسل الإطار بشكل unicast إلى منفذ واحد، وإلا فيتم flooding إلى كل المنافذ الأخرى ضمن VLAN نفسها. وعبر مبدلين قد يُغرق الإطار الأول غير المعروف، لكن الرد يعلّم كلا المبدلين مواقع MAC الناقصة. بعد ذلك يستخدم TCP المصافحة الثلاثية لكي يتفق الطرفان على حالة الاتصال الأولية."
+      en: "When a frame enters a switch, the switch records the source MAC on that port. If the destination MAC is known, the frame is unicasted to one port; otherwise it is flooded out all other ports in the same VLAN except the incoming port. Through two switches, the first unknown frame may be flooded, but the reply teaches both switches the missing MAC locations.",
+      ar: "عندما يدخل إطار إلى المبدل يسجل المبدل عنوان MAC المصدر على ذلك المنفذ. وإذا كانت وجهة MAC معروفة يرسل الإطار بشكل unicast إلى منفذ واحد، وإلا فيتم flooding إلى كل المنافذ الأخرى ضمن VLAN نفسها ما عدا منفذ الدخول. وعبر مبدلين قد يُغرق الإطار الأول غير المعروف، لكن الرد يعلّم كلا المبدلين مواقع MAC الناقصة."
     },
     keyIdeas: [
       {
@@ -950,8 +950,8 @@ const lectureContent = [
         ar: "يحدث flooding فقط عندما تكون وجهة MAC غير معروفة داخل تلك الـ VLAN."
       },
       {
-        en: "TCP starts with SYN, SYN-ACK, ACK before application data flows.",
-        ar: "يبدأ TCP بـ SYN ثم SYN-ACK ثم ACK قبل تدفق بيانات التطبيق."
+        en: "Filtering means the switch does not send the frame back out the port where it arrived.",
+        ar: "الترشيح يعني أن المبدل لا يعيد إرسال الإطار من نفس المنفذ الذي وصل منه."
       }
     ],
     example: {
@@ -972,10 +972,6 @@ const lectureContent = [
         {
           en: "PC2 replies. Now S2 learns PC2 MAC on its access port, S1 learns PC2 MAC on the uplink, and future traffic becomes unicast.",
           ar: "يرد PC2. الآن يتعلم S2 عنوان MAC الخاص بـ PC2 على منفذ الوصول ويتعلم S1 عنوان MAC الخاص بـ PC2 على منفذ الربط وتصبح الحركة اللاحقة unicast."
-        },
-        {
-          en: "If the traffic is TCP, the conversation begins with SYN, SYN-ACK, ACK before the application payload.",
-          ar: "إذا كانت الحركة TCP فإن المحادثة تبدأ بـ SYN ثم SYN-ACK ثم ACK قبل حمولة التطبيق."
         }
       ]
     },
@@ -997,13 +993,13 @@ const lectureContent = [
       }
     ],
     compare: {
-      title: "Switching and TCP Basics",
+      title: "Switching Frame-Forwarding Basics",
       columns: ["Item", "Key Point"],
       rows: [
         ["MAC learning", "Source MAC to ingress port"],
         ["Flooding", "Unknown destination MAC only"],
         ["Known unicast", "Single output port"],
-        ["TCP setup", "SYN -> SYN-ACK -> ACK"]
+        ["Filtering", "Do not send back out incoming port"]
       ]
     },
     examQuestions: [
@@ -1018,5 +1014,321 @@ const lectureContent = [
     ]
   }
 ];
+
+const examEnhancements = {
+  "packet-switching-network-layer": {
+    memorize: [
+      "Packet switching divides a message into packets and shares links statistically.",
+      "IP network-layer service is connectionless/datagram based in the lecture scope.",
+      "Routers forward packets hop by hop; congestion can create queueing delay and packet loss."
+    ],
+    questionStyles: [
+      { type: "MCQ", prompt: "Choose the service where packets are treated independently." },
+      { type: "SA", prompt: "Define packet switching and mention one advantage." },
+      { type: "Explain", prompt: "Explain why shared links improve utilization but may increase delay." }
+    ]
+  },
+  "routing-vs-forwarding": {
+    memorize: [
+      "Routing = find/build best path knowledge; forwarding = choose output interface for an arriving packet.",
+      "Routing protocols build routing tables; forwarding uses the table per packet.",
+      "Forwarding table lookup is local to each router."
+    ],
+    questionStyles: [
+      { type: "Compare", prompt: "Routing vs Forwarding by plane, scope, timing, and table use." },
+      { type: "SA", prompt: "What does a router do when a packet arrives?" },
+      { type: "MCQ", prompt: "Identify whether a statement describes routing or forwarding." }
+    ]
+  },
+  "datagram-vs-virtual-circuit": {
+    memorize: [
+      "Connectionless/datagram: no setup; each packet carries destination address and can take different paths.",
+      "Connection-oriented/virtual circuit: setup first; packets follow a pre-established logical path.",
+      "VC forwarding can use a flow label or VC identifier instead of a full destination decision each time."
+    ],
+    questionStyles: [
+      { type: "Compare", prompt: "Connectionless vs Connection-Oriented by setup, path, router state, and packet order." },
+      { type: "MCQ", prompt: "Which service requires a virtual connection before data transfer?" },
+      { type: "Explain", prompt: "Explain why datagram packets may arrive out of order." }
+    ]
+  },
+  "router-forwarding-process": {
+    memorize: [
+      "Forwarding uses destination IP/header label plus the forwarding or routing table.",
+      "Longest prefix match chooses the most specific matching route.",
+      "No matching route means drop unless a default /0 route exists."
+    ],
+    questionStyles: [
+      { type: "Steps", prompt: "Write the packet forwarding decision process from frame receive to output interface." },
+      { type: "SA", prompt: "Define longest prefix match." },
+      { type: "MCQ", prompt: "Given several prefixes, choose which route matches a destination IP." }
+    ]
+  },
+  "store-forward-cut-through": {
+    memorize: [
+      "Store-and-forward receives the whole packet/frame before forwarding.",
+      "Cut-through starts forwarding before receiving the whole packet/frame.",
+      "Store-and-forward has more checking and usually more delay; cut-through reduces delay."
+    ],
+    questionStyles: [
+      { type: "Compare", prompt: "Store-and-Forward vs Cut-Through by start time, delay, and error checking." },
+      { type: "MCQ", prompt: "Which switching method can verify the complete frame before forwarding?" },
+      { type: "Explain", prompt: "Explain the delay tradeoff between the two switching methods." }
+    ]
+  },
+  "network-performance": {
+    memorize: [
+      "Transmission delay = L / R, where L is packet length in bits and R is link rate in bits/second.",
+      "Propagation delay = distance / propagation speed.",
+      "Queueing delay changes with congestion; packet loss happens when buffers overflow."
+    ],
+    questionStyles: [
+      { type: "MCQ", prompt: "Match each delay type with its formula or cause." },
+      { type: "SA", prompt: "Define throughput, delay, and packet loss." },
+      { type: "Steps", prompt: "Calculate transmission delay from packet size and link rate." }
+    ]
+  },
+  "routing-algorithms": {
+    memorize: [
+      "Static routes are manually configured; dynamic protocols learn and maintain routes automatically.",
+      "Administrative Distance compares route sources; metric compares paths inside the same protocol.",
+      "Distance vector shares routes with neighbors; link state builds topology and runs Dijkstra/SPF."
+    ],
+    questionStyles: [
+      { type: "Compare", prompt: "Static vs Dynamic Routing." },
+      { type: "Compare", prompt: "Distance Vector vs Link State." },
+      { type: "SA", prompt: "Explain AD vs metric and give examples RIP/OSPF." }
+    ]
+  },
+  rip: {
+    memorize: [
+      "RIP is a dynamic distance-vector protocol for small to medium networks.",
+      "Metric is hop count; maximum valid hop count is 15, and 16 means unreachable.",
+      "RIPv1 is classful; RIPv2 is classless and supports VLSM/CIDR with subnet masks in updates."
+    ],
+    questionStyles: [
+      { type: "MCQ", prompt: "What is RIP metric and maximum hop count?" },
+      { type: "Compare", prompt: "RIPv1 vs RIPv2." },
+      { type: "Steps", prompt: "Show how hop count increases when a route is advertised across routers." }
+    ]
+  },
+  ospf: {
+    memorize: [
+      "OSPF is a link-state protocol developed as an alternative to RIP; it converges faster and scales better.",
+      "Five packets: Hello, DBD, LSR, LSU, LSAck.",
+      "Three databases: neighbor/adjacency table, LSDB/topology table, routing/forwarding table.",
+      "Single-area best practice uses area 0; multi-area requires all areas to connect to backbone area 0."
+    ],
+    questionStyles: [
+      { type: "MCQ", prompt: "Identify OSPF packet type or database role." },
+      { type: "Steps", prompt: "Describe adjacency, LSDB synchronization, SPF, and route installation." },
+      { type: "Compare", prompt: "Single-Area vs Multi-Area OSPF." }
+    ]
+  },
+  vlan: {
+    memorize: [
+      "A VLAN is a logical Layer 2 broadcast domain independent of physical location.",
+      "Access link carries one VLAN, usually untagged; trunk link carries multiple VLANs, usually tagged.",
+      "802.1Q inserts a 4-byte tag; TPID is 0x8100 and VLAN ID is 12 bits.",
+      "Different VLANs need Layer 3 routing to communicate."
+    ],
+    questionStyles: [
+      { type: "MCQ", prompt: "Identify 802.1Q fields, tag size, or VLAN ID purpose." },
+      { type: "Compare", prompt: "VLAN Access link vs Trunk link." },
+      { type: "Explain", prompt: "Explain VLAN broadcast-domain isolation." }
+    ]
+  },
+  "routing-packets": {
+    memorize: [
+      "Switches learn from source MAC addresses on incoming frames.",
+      "Unknown destination MAC is flooded out other ports in the same VLAN.",
+      "Known destination MAC is forwarded to the learned port; non-destination hosts discard frames."
+    ],
+    questionStyles: [
+      { type: "Steps", prompt: "Trace the first frame and return frame through two switches." },
+      { type: "MCQ", prompt: "When does flooding occur?" },
+      { type: "SA", prompt: "Define MAC learning and filtering." }
+    ]
+  }
+};
+
+const commandEnhancements = {
+  "show ip route": {
+    solves: "Confirms which prefixes are installed and which next hop or exit interface will be used.",
+    output: "Look for route source codes such as C, S, R, O, the prefix length, AD/metric, next hop, and outgoing interface.",
+    exam: "Read the prefix, route source, AD/metric, and next hop; do not memorize every output line."
+  },
+  "show ip route 172.16.5.20": {
+    solves: "Tests which route would match a specific destination address.",
+    output: "The selected prefix, route source, AD/metric, next hop, and exit interface for that destination.",
+    exam: "Use it to explain longest prefix match and routing-table reading."
+  },
+  "show arp": {
+    solves: "Checks the Layer 3 to Layer 2 address mapping needed before Ethernet forwarding.",
+    output: "IP-to-MAC mappings learned by ARP.",
+    exam: "Support detail only; the main exam point is that each hop uses a new Layer 2 frame."
+  },
+  "show interfaces counters": {
+    solves: "Checks traffic counters and errors that can indicate congestion or packet loss.",
+    output: "Packet counts, drops, and error counters by interface.",
+    exam: "Relate counters to delay, throughput, and loss concepts."
+  },
+  "show processes cpu": {
+    solves: "Checks whether router processing load may contribute to delay.",
+    output: "CPU utilization and active processes.",
+    exam: "Optional lab support; lecture focus is delay types, not CPU tuning.",
+    optional: true
+  },
+  "show running-config | section ip route": {
+    solves: "Shows configured static route statements only.",
+    output: "Manual ip route entries from the running configuration.",
+    exam: "Static routes are manually configured and do not adapt automatically."
+  },
+  "show interfaces": {
+    solves: "Checks interface state and counters that can explain forwarding or performance problems.",
+    output: "Interface up/down state, bandwidth, errors, and packet counters.",
+    exam: "Useful for linking delay/loss theory to congestion or interface faults."
+  },
+  "show ip protocols": {
+    solves: "Shows which dynamic routing protocol is active and what networks it advertises.",
+    output: "Protocol name, networks, timers, passive interfaces, and routing sources.",
+    exam: "Know that routing protocols populate the table; use this only as verification."
+  },
+  "show ip route rip": {
+    solves: "Filters the routing table to RIP-learned routes.",
+    output: "Routes marked R with AD/metric, where RIP AD is 120 and metric is hop count.",
+    exam: "Metric value is hop count; 16 is unreachable."
+  },
+  "router rip": {
+    solves: "Starts RIP routing configuration mode.",
+    output: "Router enters RIP config context where version and network statements are added.",
+    exam: "Concept first: RIP shares routing information with neighbors using hop count."
+  },
+  "network 10.0.0.0": {
+    solves: "Adds matching connected networks to the RIP routing process.",
+    output: "RIP advertises the classful network and associated subnets depending on version/summary behavior.",
+    exam: "Know the concept: network statements enable protocol participation on matching interfaces."
+  },
+  "version 2": {
+    solves: "Enables RIPv2 classless behavior.",
+    output: "RIP updates include subnet mask information.",
+    exam: "RIPv2 supports VLSM/CIDR; RIPv1 is classful."
+  },
+  "no auto-summary": {
+    solves: "Stops automatic classful summarization at major network boundaries.",
+    output: "Subnets and their proper masks are advertised instead of classful summaries.",
+    exam: "Important when explaining why RIPv2 works with discontiguous/VLSM networks."
+  },
+  "router ospf 10": {
+    solves: "Starts an OSPFv2 process with a locally significant process ID.",
+    output: "Router enters OSPF config context.",
+    exam: "The process ID does not need to match on all routers."
+  },
+  "router ospf 1": {
+    solves: "Starts an OSPFv2 process with a locally significant process ID.",
+    output: "Router enters OSPF configuration mode.",
+    exam: "Process ID is local; OSPF neighbor formation depends on area/timers/authentication, not matching process ID."
+  },
+  "router-id 1.1.1.1": {
+    solves: "Manually sets the 32-bit OSPF router ID.",
+    output: "OSPF uses that ID to identify the router after process restart if needed.",
+    exam: "Router ID uniquely identifies an OSPF router and participates in database sync and DR/BDR election."
+  },
+  "network 10.0.0.0 0.0.0.255 area 0": {
+    solves: "Enables OSPF on interfaces matching the wildcard mask and places them in area 0.",
+    output: "Matching interfaces send/receive OSPF packets and advertise their networks.",
+    exam: "Area 0 is the backbone and single-area best-practice area in the slides."
+  },
+  "passive-interface g0/0": {
+    solves: "Stops OSPF Hello packets on an interface that should not form neighbors.",
+    output: "The connected network can still be advertised, but no adjacency forms on that interface.",
+    exam: "Passive interface suppresses Hellos; it does not automatically remove the network from OSPF."
+  },
+  "show ip route ospf": {
+    solves: "Filters the routing table to OSPF-learned routes.",
+    output: "Routes marked O with AD/metric, commonly [110/cost].",
+    exam: "OSPF metric is cost; lower cost is preferred."
+  },
+  "show ip ospf neighbor": {
+    solves: "Verifies OSPF neighbor adjacency.",
+    output: "Neighbor router ID, state, dead timer, address, and interface.",
+    exam: "Hello packets discover/maintain neighbors; Full means adjacency is complete."
+  },
+  "show ip ospf database": {
+    solves: "Displays the OSPF LSDB built from LSAs.",
+    output: "LSA entries that represent topology information for the area.",
+    exam: "LSDB is identical for routers inside the same area."
+  },
+  "show ip ospf interface": {
+    solves: "Checks OSPF settings on an interface.",
+    output: "Area, cost, network type, timers, and neighbor information.",
+    exam: "OSPF cost is the metric; lower cost is better."
+  },
+  "show vlan brief": {
+    solves: "Verifies VLAN existence and access-port membership.",
+    output: "VLAN IDs, names, status, and assigned access ports.",
+    exam: "Access ports belong to one VLAN/broadcast domain."
+  },
+  "vlan 10": {
+    solves: "Creates or selects VLAN 10 on a switch.",
+    output: "VLAN 10 appears in the VLAN database/show vlan brief.",
+    exam: "VLANs are logical Layer 2 broadcast domains."
+  },
+  "switchport mode access": {
+    solves: "Configures a port as an access link for one VLAN.",
+    output: "The port operates as an untagged end-device port.",
+    exam: "Access link carries one VLAN."
+  },
+  "switchport access vlan 10": {
+    solves: "Assigns an access port to VLAN 10.",
+    output: "show vlan brief lists the port under VLAN 10.",
+    exam: "Port membership decides which broadcast domain the host belongs to."
+  },
+  "switchport mode trunk": {
+    solves: "Configures a link to carry multiple VLANs between network devices.",
+    output: "show interfaces trunk reports trunking status and allowed VLANs.",
+    exam: "Trunk link carries multiple VLANs, normally with 802.1Q tags."
+  },
+  "show interfaces trunk": {
+    solves: "Verifies trunk links and allowed VLANs.",
+    output: "Trunking status, encapsulation, native VLAN, and allowed VLAN list.",
+    exam: "Trunks carry multiple VLANs using tagging such as 802.1Q."
+  },
+  "encapsulation dot1Q": {
+    solves: "Associates a router subinterface with an 802.1Q VLAN tag for router-on-a-stick.",
+    output: "Traffic on that subinterface is matched to the configured VLAN ID.",
+    exam: "Inter-VLAN communication needs Layer 3 routing, not only a Layer 2 switch.",
+    optional: true
+  },
+  "encapsulation dot1Q 10": {
+    solves: "Binds a router subinterface to VLAN 10 using an 802.1Q tag.",
+    output: "Frames for VLAN 10 are processed by that subinterface.",
+    exam: "Router-on-a-stick is a practical method for inter-VLAN routing.",
+    optional: true
+  },
+  "show mac address-table": {
+    solves: "Shows what MAC addresses the switch has learned and on which ports.",
+    output: "MAC address, VLAN, type, and port.",
+    exam: "Switches learn source MAC addresses; unknown destination causes flooding."
+  },
+  "show interfaces status": {
+    solves: "Quickly checks switch port status and VLAN assignment.",
+    output: "Port, name, status, VLAN, duplex, speed, and type.",
+    exam: "Useful lab verification; concept is access/trunk membership."
+  },
+  "show ip arp": {
+    solves: "Maps IP addresses to MAC addresses when tracing local delivery.",
+    output: "IP address, MAC address, age, and interface.",
+    exam: "Optional support command; the lecture focus is MAC learning and forwarding."
+  }
+};
+
+lectureContent.forEach((topic) => {
+  Object.assign(topic, examEnhancements[topic.id] || {});
+  topic.commands = (topic.commands || []).map((command) => ({
+    ...command,
+    ...(commandEnhancements[command.cmd] || {})
+  }));
+});
 
 export default lectureContent;

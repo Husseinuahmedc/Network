@@ -3,7 +3,13 @@ import lectureContent from './lecture-content.js';
 export const cheatSheetData = lectureContent.flatMap((topic) => {
   const items = [
     { topic: topic.title, content: topic.concept.en, link: `#${topic.id}` },
-    { topic: `${topic.title} Why It Matters`, content: topic.whyItMatters.en, link: `#${topic.id}` }
+    { topic: `${topic.title} Why It Matters`, content: topic.whyItMatters.en, link: `#${topic.id}` },
+    { topic: `${topic.title} Memorize`, content: (topic.memorize || []).join(' ; '), link: `#${topic.id}` },
+    {
+      topic: `${topic.title} Final Question Style`,
+      content: (topic.questionStyles || []).map((item) => `${item.type}: ${item.prompt}`).join(' ; '),
+      link: `#${topic.id}`
+    }
   ];
 
   if (topic.compare) {
@@ -20,7 +26,7 @@ export const cheatSheetData = lectureContent.flatMap((topic) => {
 export const commandData = lectureContent.flatMap((topic) =>
   topic.commands.map((command) => ({
     cmd: command.cmd,
-    desc: command.desc,
+    desc: [command.desc, command.solves, command.output, command.exam].filter(Boolean).join(' '),
     category: topic.title,
     link: '#commands'
   }))
@@ -29,7 +35,12 @@ export const commandData = lectureContent.flatMap((topic) =>
 export const visualizerData = [
   {
     title: 'Packet Forwarding Steps',
-    desc: 'Ingress frame, route lookup, TTL update, ARP/next-hop, new Layer 2 frame.',
+    desc: 'Ingress frame, route lookup, longest prefix match, TTL update, next-hop, new Layer 2 frame.',
+    link: '#visualizer'
+  },
+  {
+    title: 'Routing Table Reading',
+    desc: 'Route source code, prefix length, AD/metric, next hop, exit interface, default route.',
     link: '#visualizer'
   },
   {

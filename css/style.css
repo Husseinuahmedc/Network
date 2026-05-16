@@ -23,10 +23,10 @@
   --shadow-md: 0 18px 42px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 26px 60px rgba(15, 23, 42, 0.1);
   --radius-xl: 30px;
-  --radius-lg: 22px;
-  --radius-md: 18px;
-  --radius-sm: 14px;
-  --radius-xs: 10px;
+  --radius-lg: 12px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
   --font-ui: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-ar: "Cairo", "Alexandria", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
@@ -90,7 +90,7 @@ select {
     linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(255, 250, 243, 0.92)),
     linear-gradient(180deg, rgba(15, 118, 110, 0.05), rgba(201, 138, 27, 0.05));
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 34px;
+  border-radius: 16px;
   padding: 2.1rem;
   box-shadow: var(--shadow-lg);
 }
@@ -152,7 +152,7 @@ select {
 .study-path-card {
   background: linear-gradient(180deg, rgba(248, 252, 251, 0.98), rgba(255, 248, 238, 0.95));
   border: 1px solid var(--line);
-  border-radius: 26px;
+  border-radius: var(--radius-lg);
   padding: 1.25rem;
   box-shadow: var(--shadow-sm);
 }
@@ -167,7 +167,7 @@ select {
   display: block;
   padding: 0.95rem 1rem;
   text-decoration: none;
-  border-radius: 18px;
+  border-radius: var(--radius-sm);
   border: 1px solid rgba(15, 118, 110, 0.12);
   background: rgba(255, 255, 255, 0.84);
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
@@ -549,7 +549,9 @@ section {
 .final-question-card,
 .qa-item,
 .command-block,
-.step-card {
+.step-card,
+.question-style-card,
+.exam-memory-block {
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -576,6 +578,43 @@ section {
 .key-idea-card {
   padding: 1rem;
   border-inline-start: 4px solid var(--accent);
+}
+
+.exam-memory-block {
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(255, 251, 235, 0.92), rgba(255, 255, 255, 0.82));
+  border-color: rgba(201, 138, 27, 0.24);
+}
+
+.exam-memory-block ul {
+  display: grid;
+  gap: 0.5rem;
+  padding-inline-start: 1.1rem;
+}
+
+.exam-memory-block li::marker {
+  color: var(--accent-strong);
+}
+
+.question-style-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.question-style-card {
+  padding: 0.85rem;
+}
+
+.question-style-card span {
+  display: inline-flex;
+  margin-bottom: 0.4rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-xs);
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .detail-section {
@@ -737,6 +776,11 @@ section {
   margin-bottom: 0.75rem;
 }
 
+.comparison-card .exam-memory-block,
+.comparison-card .question-style-block {
+  margin: 0 0 0.85rem;
+}
+
 .table-responsive {
   overflow-x: auto;
   scrollbar-width: thin;
@@ -834,6 +878,27 @@ tr:nth-child(even) td {
   margin-top: 0.55rem;
   color: rgba(229, 238, 247, 0.82);
   font-size: 0.94rem;
+}
+
+.command-block p {
+  margin-top: 0.45rem;
+  color: rgba(229, 238, 247, 0.8);
+  font-size: 0.9rem;
+}
+
+.command-block strong {
+  color: #f7c869;
+}
+
+.optional-lab-badge {
+  display: inline-flex;
+  margin-top: 0.65rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-xs);
+  background: rgba(247, 200, 105, 0.12);
+  color: #f7c869;
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .visualizer-grid {
@@ -1103,7 +1168,7 @@ body.revision-mode .topic-card {
   background: rgba(255, 253, 248, 0.95);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .dashboard-intro,
   .section-heading,
   .footer-shell {

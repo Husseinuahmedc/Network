@@ -218,11 +218,18 @@ const quizBank = [
     explanationAr: "يقوم المبدل بعمل flooding للإطار عندما تكون وجهة MAC غير معروفة على المنافذ الأخرى في نفس الـ VLAN."
   },
   {
-    question: "Which sequence starts a TCP session?",
-    options: ["ACK, SYN, FIN", "SYN, SYN-ACK, ACK", "RST, SYN, ACK", "PSH, ACK, FIN"],
+    question: "In a routing table entry such as O 192.168.3.0/24 [110/65], what does 110 represent?",
+    options: ["OSPF cost", "Administrative distance", "VLAN ID", "Hop count"],
     answer: 1,
-    explanation: "TCP connection establishment uses the three-way handshake: SYN, SYN-ACK, then ACK.",
-    explanationAr: "يستخدم إنشاء اتصال TCP المصافحة الثلاثية: SYN ثم SYN-ACK ثم ACK."
+    explanation: "The bracket is [administrative distance / metric]. OSPF has AD 110, and 65 is the route metric in this example.",
+    explanationAr: "القوس يعني [المسافة الإدارية / المقياس]. قيمة OSPF الإدارية هي 110، و65 هي مقياس المسار في هذا المثال."
+  },
+  {
+    question: "If 10.1.2.5 matches 10.0.0.0/8 and 10.1.2.0/24, which route is chosen?",
+    options: ["10.0.0.0/8", "10.1.2.0/24", "The route with higher AD", "The default route"],
+    answer: 1,
+    explanation: "Forwarding uses longest prefix match, so /24 is chosen over /8 because it is more specific.",
+    explanationAr: "يستخدم التمرير أطول مطابقة للبادئة، لذلك تُختار /24 بدلاً من /8 لأنها أكثر تحديداً."
   }
 ];
 
